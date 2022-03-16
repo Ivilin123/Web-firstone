@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace WebProject.Data
 {
-    public class User:IdentityUser
+    public class User : IdentityUser
     {
         public string Name { get; set; }
         public string LastName { get; set; }
