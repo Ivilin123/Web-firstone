@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebProject.Data;
+using WebProject.Models;
 
 namespace WebProject.Controllers
 {
@@ -49,10 +50,38 @@ namespace WebProject.Controllers
         // GET: Products/Create
         public IActionResult Create()
         {
-            ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "FirstName");
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "CategoryName");
-            ViewData["PublisherId"] = new SelectList(_context.Publishers, "Id", "NamePublisher");
-            return View();
+            ProductsVM model = new ProductsVM();
+
+            model.Publisher = _context.Publishers.Select(x => new SelectListItem
+            {
+                Text = x.NamePublisher,
+                Value = x.Id.ToString(),
+                Selected = (x.Id == model.PublisherId)
+            }
+            ).ToList();
+
+
+            model.Author = _context.Authors.Select(y => new SelectListItem
+            {
+                Text = y.FirstName,
+                Value = y.Id.ToString(),
+                Selected = (y.Id == model.AuthorId)
+            }
+            ).ToList();
+
+            model.Category = _context.Categories.Select(z => new SelectListItem
+            {
+                Text = z.CategoryName,
+                Value = z.Id.ToString(),
+                Selected = (z.Id == model.CategoryId)
+            }
+            ).ToList();
+
+
+            //ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "FirstName");
+            // ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "CategoryName");
+            //ViewData["PublisherId"] = new SelectList(_context.Publishers, "Id", "NamePublisher");
+            return View(model);
         }
 
         // POST: Products/Create
@@ -67,11 +96,50 @@ namespace WebProject.Controllers
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
+                
+
+               
             }
-            ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "Id", product.AuthorId);
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", product.CategoryId);
-            ViewData["PublisherId"] = new SelectList(_context.Publishers, "Id", "Id", product.PublisherId);
-            return View(product);
+            ProductsVM model = new ProductsVM();
+
+            model.Publisher = _context.Publishers.Select(x => new SelectListItem
+            {
+                Text = x.NamePublisher,
+                Value = x.Id.ToString(),
+                Selected = (x.Id == model.PublisherId)
+            }
+            ).ToList();
+
+
+            model.Author = _context.Authors.Select(y => new SelectListItem
+            {
+                Text = y.FirstName,
+                Value = y.Id.ToString(),
+                Selected = (y.Id == model.AuthorId)
+            }
+            ).ToList();
+
+            model.Category = _context.Categories.Select(z => new SelectListItem
+            {
+                Text = z.CategoryName,
+                Value = z.Id.ToString(),
+                Selected = (z.Id == model.CategoryId)
+            }
+            ).ToList();
+
+            return View(model);
+            //Product modelToDB = new Product
+            // {
+            //  PublisherId = product.PublisherId,
+            // AuthorId=product.AuthorId,
+            // CategoryId=product.CategoryId
+
+            //};
+
+            //ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "Id", product.AuthorId);
+            //ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", product.CategoryId);
+            //ViewData["PublisherId"] = new SelectList(_context.Publishers, "Id", "Id", product.PublisherId);
+
         }
 
         // GET: Products/Edit/5

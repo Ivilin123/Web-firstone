@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebProject.Data;
+using WebProject.Models;
 
 namespace WebProject.Controllers
 {
@@ -54,8 +55,21 @@ namespace WebProject.Controllers
         // GET: Orders/Create
         public IActionResult Create()
         {
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name");
-            return View();
+            OrdersVM model = new OrdersVM();
+            model.UserId = _userManager.GetUserId(User);
+            model.Product = _context.Products.Select(p => new SelectListItem
+            {
+                Text = p.Name,
+                Value = p.Id.ToString(),
+                Selected = (p.Id == model.ProductId)
+            }
+            ).ToList();
+           
+            var idUser = _userManager.GetUserId(User);
+            var idUser1 = _userManager.GetUserId(HttpContext.User);
+            ViewBag.UserId = idUser1;
+            //ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name");
+            return View(model);
         }
 
         // POST: Orders/Create
