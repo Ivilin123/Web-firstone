@@ -10,8 +10,8 @@ using WebProject.Data;
 namespace WebProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220316102019_InitialMig")]
-    partial class InitialMig
+    [Migration("20220316135317_Mig33")]
+    partial class Mig33
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -208,17 +208,14 @@ namespace WebProject.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId1")
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Orders");
                 });
@@ -427,7 +424,7 @@ namespace WebProject.Migrations
 
                     b.HasOne("WebProject.Data.User", "User")
                         .WithMany("Orders")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Product");
 

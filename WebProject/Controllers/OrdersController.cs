@@ -77,16 +77,32 @@ namespace WebProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,ProductId,AmountOrdered,PriceOrder,OrderedOn")] Order order)
+        public async Task<IActionResult> Create([Bind("Id,UserId,ProductId,AmountOrdered,PriceOrder,OrderedOn")] OrdersVM order)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.Add(order);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", order.ProductId);
+                OrdersVM model = new OrdersVM();
+                model.UserId = _userManager.GetUserId(User);
+                model.Product = _context.Products.Select(p => new SelectListItem
+                {
+                    Text = p.Name,
+                    Value = p.Id.ToString(),
+                    Selected = (p.Id == model.ProductId)
+                }
+                ).ToList();
+                return View(model);
             }
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", order.ProductId);
-            return View(order);
+            Order modelToDB = new Order
+            {
+                ProductId = order.ProductId,
+                UserId = _userManager.GetUserId(User),
+                OrderedOn = order.OrderedOn
+            };
+            _context.Add(modelToDB);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+
         }
 
         // GET: Orders/Edit/5
