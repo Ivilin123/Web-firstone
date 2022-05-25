@@ -27,21 +27,14 @@ using WebProject.Areas.Identity;
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\ASPIRE\source\repos\WebProject\WebProject\Areas\Identity\Pages\_ViewImports.cshtml"
-using WebProject.Areas.Identity.Pages;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 5 "C:\Users\ASPIRE\source\repos\WebProject\WebProject\Areas\Identity\Pages\_ViewImports.cshtml"
+#line 4 "C:\Users\ASPIRE\source\repos\WebProject\WebProject\Areas\Identity\Pages\_ViewImports.cshtml"
 using WebProject.Data;
 
 #line default
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"13b82ef97968a56a4de533f67cf3e21d662f41aa", @"/Areas/Identity/Pages/_ViewStart.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"1d586a89a93363de2880f6998c4f8bf21424f3f8", @"/Areas/Identity/Pages/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"15b06b878686c3c6f8df6c3f90332e394f6775f7", @"/Areas/Identity/Pages/_ViewImports.cshtml")]
     #nullable restore
     public class Areas_Identity_Pages__ViewStart : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     #nullable disable

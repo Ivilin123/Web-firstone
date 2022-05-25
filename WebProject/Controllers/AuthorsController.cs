@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebProject.Data;
 
+
 namespace WebProject.Controllers
 {
     public class AuthorsController : Controller

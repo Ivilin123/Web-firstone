@@ -29,8 +29,11 @@ namespace WebProject.Controllers
         // GET: Orders
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Orders.Include(o => o.Product);
-            return View(await applicationDbContext.ToListAsync());
+            var model = _context.Orders
+                .Include(o => o.Product)
+                .Include(o => o.User);
+
+            return View(await model.ToListAsync());
         }
 
         // GET: Orders/Details/5
@@ -56,19 +59,21 @@ namespace WebProject.Controllers
         public IActionResult Create()
         {
             OrdersVM model = new OrdersVM();
+           
             model.UserId = _userManager.GetUserId(User);
-            model.Product = _context.Products.Select(p => new SelectListItem
+            model.Products = _context.Products.Select(p => new SelectListItem
             {
                 Text = p.Name,
                 Value = p.Id.ToString(),
                 Selected = (p.Id == model.ProductId)
             }
             ).ToList();
-           
-            var idUser = _userManager.GetUserId(User);
-            var idUser1 = _userManager.GetUserId(HttpContext.User);
-            ViewBag.UserId = idUser1;
-            //ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name");
+          
+
+            //var idUser = _userManager.GetUserId(User);
+            //var idUser1 = _userManager.GetUserId(HttpContext.User);
+            //ViewBag.UserId = idUser1;
+            ////ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name");
             return View(model);
         }
 
@@ -84,7 +89,7 @@ namespace WebProject.Controllers
                 //ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", order.ProductId);
                 OrdersVM model = new OrdersVM();
                 model.UserId = _userManager.GetUserId(User);
-                model.Product = _context.Products.Select(p => new SelectListItem
+                model.Products = _context.Products.Select(p => new SelectListItem
                 {
                     Text = p.Name,
                     Value = p.Id.ToString(),
@@ -97,6 +102,8 @@ namespace WebProject.Controllers
             {
                 ProductId = order.ProductId,
                 UserId = _userManager.GetUserId(User),
+                AmountOrdered = order.AmountOrdered,
+                PriceOrder = order.PriceOrder,
                 OrderedOn = order.OrderedOn
             };
             _context.Add(modelToDB);
@@ -114,12 +121,29 @@ namespace WebProject.Controllers
             }
 
             var order = await _context.Orders.FindAsync(id);
+
             if (order == null)
             {
                 return NotFound();
             }
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", order.ProductId);
-            return View(order);
+            OrdersVM model = new OrdersVM();
+            model.Id= order.Id; 
+            model.ProductId = order.ProductId;
+            //  model.UserId = _userManager.GetUserId(User);
+            model.AmountOrdered = order.AmountOrdered;
+            model.PriceOrder = order.PriceOrder;
+            model.OrderedOn = order.OrderedOn;
+            model.Products = _context.Products.Select(p => new SelectListItem
+            {
+                Value = p.Id.ToString(),
+                Text = p.Name,
+                Selected = p.Id == model.ProductId
+            }).ToList();
+
+
+            return View(model);
+
+
         }
 
         // POST: Orders/Edit/5
@@ -127,35 +151,50 @@ namespace WebProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,ProductId,AmountOrdered,PriceOrder,OrderedOn")] Order order)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ProductId,AmountOrdered,PriceOrder,OrderedOn")] OrdersVM order)
         {
             if (id != order.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            Order modelToDB = await _context.Orders.FindAsync(id);
+            if (modelToDB == null)
             {
-                try
-                {
-                    _context.Update(order);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!OrderExists(order.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                return NotFound();
             }
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", order.ProductId);
-            return View(order);
+
+            if (!ModelState.IsValid)
+            {
+                return View(order);
+            }
+
+            //  model.Id = order.Id;    
+            modelToDB.ProductId = order.ProductId;
+            modelToDB.UserId = _userManager.GetUserId(User);
+            modelToDB.AmountOrdered = order.AmountOrdered;
+            modelToDB.PriceOrder = order.PriceOrder;
+            modelToDB.OrderedOn = order.OrderedOn;
+            try
+            {
+                _context.Update(modelToDB);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!OrderExists(modelToDB.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+
+            }
+            return RedirectToAction("Details", new { id = id });
+           
+            // return RedirectToAction(nameof(Index));
         }
 
         // GET: Orders/Delete/5

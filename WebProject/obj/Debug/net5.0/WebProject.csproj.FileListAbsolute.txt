@@ -182,10 +182,10 @@ C:\Users\ASPIRE\source\repos\WebProject\WebProject\obj\Debug\net5.0\Razor\Views\
 C:\Users\ASPIRE\source\repos\WebProject\WebProject\obj\Debug\net5.0\Razor\Views\Publishers\Details.cshtml.g.cs
 C:\Users\ASPIRE\source\repos\WebProject\WebProject\obj\Debug\net5.0\Razor\Views\Publishers\Edit.cshtml.g.cs
 C:\Users\ASPIRE\source\repos\WebProject\WebProject\obj\Debug\net5.0\Razor\Views\Publishers\Index.cshtml.g.cs
+C:\Users\ASPIRE\source\repos\WebProject\WebProject\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ValidationScriptsPartial.cshtml.g.cs
+C:\Users\ASPIRE\source\repos\WebProject\WebProject\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ViewImports.cshtml.g.cs
+C:\Users\ASPIRE\source\repos\WebProject\WebProject\obj\Debug\net5.0\Razor\Views\Orders\Edit3.cshtml.g.cs
 C:\Users\ASPIRE\source\repos\WebProject\WebProject\obj\Debug\net5.0\Razor\Areas\Identity\Pages\Account\Login.cshtml.g.cs
 C:\Users\ASPIRE\source\repos\WebProject\WebProject\obj\Debug\net5.0\Razor\Areas\Identity\Pages\Account\Logout.cshtml.g.cs
 C:\Users\ASPIRE\source\repos\WebProject\WebProject\obj\Debug\net5.0\Razor\Areas\Identity\Pages\Account\Register.cshtml.g.cs
-C:\Users\ASPIRE\source\repos\WebProject\WebProject\obj\Debug\net5.0\Razor\Areas\Identity\Pages\Account\ResetPassword.cshtml.g.cs
 C:\Users\ASPIRE\source\repos\WebProject\WebProject\obj\Debug\net5.0\Razor\Areas\Identity\Pages\Account\_ViewImports.cshtml.g.cs
-C:\Users\ASPIRE\source\repos\WebProject\WebProject\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ValidationScriptsPartial.cshtml.g.cs
-C:\Users\ASPIRE\source\repos\WebProject\WebProject\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ViewImports.cshtml.g.cs

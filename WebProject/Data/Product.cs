@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Security.Policy;
 
 namespace WebProject.Data
 {
@@ -20,6 +19,7 @@ namespace WebProject.Data
         public int Amount { get; set; }
         public string Summary { get; set; }
         public string ImageURL { get; set; }
+
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Price { get; set; }
 

@@ -33,16 +33,19 @@ namespace WebProject.Controllers
             {
                 return NotFound();
             }
-
-            var product = await _context.Products
+           var product = await _context.Products
+              
+        
                 .Include(p => p.Author)
                 .Include(p => p.Category)
                 .Include(p => p.Publisher)
-                .FirstOrDefaultAsync(m => m.Id == id);
+               .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
                 return NotFound();
             }
+           
+         
 
             return View(product);
         }
@@ -151,14 +154,51 @@ namespace WebProject.Controllers
             }
 
             var product = await _context.Products.FindAsync(id);
+
             if (product == null)
             {
                 return NotFound();
             }
-            ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "Id", product.AuthorId);
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", product.CategoryId);
-            ViewData["PublisherId"] = new SelectList(_context.Publishers, "Id", "Id", product.PublisherId);
-            return View(product);
+            ProductsVM model = new ProductsVM();
+            model.Amount = product.Amount;
+            model.Summary = product.Summary;    
+            model.ImageURL = product.ImageURL;
+            model.Price = product.Price;
+            model.PublishingYear= product.PublishingYear;   
+            model.Name= product.Name;       
+          
+
+
+           
+            model.Publisher = _context.Publishers.Select(x => new SelectListItem
+            {
+                Text = x.NamePublisher,
+                Value = x.Id.ToString(),
+                Selected = (x.Id == model.PublisherId)
+            }
+            ).ToList();
+
+
+            model.Author = _context.Authors.Select(y => new SelectListItem
+            {
+                Text = y.FirstName,
+                Value = y.Id.ToString(),
+                Selected = (y.Id == model.AuthorId)
+            }
+            ).ToList();
+
+            model.Category = _context.Categories.Select(z => new SelectListItem
+            {
+                Text = z.CategoryName,
+                Value = z.Id.ToString(),
+                Selected = (z.Id == model.CategoryId)
+            }
+            ).ToList();
+            //ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "Id", product.AuthorId);
+            // ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", product.CategoryId);
+            //ViewData["PublisherId"] = new SelectList(_context.Publishers, "Id", "Id", product.PublisherId);
+            return View(model);
+            
         }
 
         // POST: Products/Edit/5
@@ -166,37 +206,58 @@ namespace WebProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,AuthorId,Covers,Types,PublisherId,PublishingYear,CategoryId,Amount,Summary,ImageURL,Price")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,AuthorId,Covers,Types,PublisherId,PublishingYear,CategoryId,Amount,Summary,ImageURL,Price")] ProductsVM product)
         {
             if (id != product.Id)
             {
                 return NotFound();
             }
+            Product modelToDB = await _context.Products.FindAsync(id);
+            if (modelToDB == null)
+            {
+                return NotFound();
+            }
+          
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(product);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProductExists(product.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                return View(product);
+                // return RedirectToAction(nameof(Index));
             }
-            ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "Id", product.AuthorId);
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", product.CategoryId);
-            ViewData["PublisherId"] = new SelectList(_context.Publishers, "Id", "Id", product.PublisherId);
-            return View(product);
+            
+            modelToDB.Id = product.Id;
+            modelToDB.Name = product.Name;
+            modelToDB.Price = product.Price;
+            modelToDB.Amount = product.Amount;
+            modelToDB.AuthorId = product.AuthorId;
+            modelToDB.Types = product.Types;
+            modelToDB.PublisherId = product.PublisherId;
+            modelToDB.PublishingYear = product.PublishingYear;
+            modelToDB.CategoryId = product.CategoryId;
+            modelToDB.Summary = product.Summary;
+            modelToDB.ImageURL = product.ImageURL;
+                
+            try
+            {
+                _context.Update(modelToDB);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ProductExists(modelToDB.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction("Details", new { id=id });
+            // ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "Id", product.AuthorId);
+            // ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", product.CategoryId);
+            // ViewData["PublisherId"] = new SelectList(_context.Publishers, "Id", "Id", product.PublisherId);
+            // return View(product);
         }
 
         // GET: Products/Delete/5

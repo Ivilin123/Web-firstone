@@ -10,8 +10,8 @@ using WebProject.Data;
 namespace WebProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220316135317_Mig33")]
-    partial class Mig33
+    [Migration("20220323105739_InitialMig22")]
+    partial class InitialMig22
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -308,7 +308,7 @@ namespace WebProject.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("LastName")
+                    b.Property<string>("FullName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -316,9 +316,6 @@ namespace WebProject.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
