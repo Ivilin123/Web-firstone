@@ -1,5 +1,5 @@
 ﻿@model WebProject.Data.Product
-
+<link rel="stylesheet" href="~/css/StyleSheet.css" />
 @{
     ViewData["Title"] = "Details";
 }
@@ -20,7 +20,8 @@
             @Html.DisplayNameFor(model => model.Author)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Author.Id)
+            @Html.DisplayFor(model => model.Author.FirstName)
+            @Html.DisplayFor(model => model.Author.LastName)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Covers)
@@ -38,7 +39,7 @@
             @Html.DisplayNameFor(model => model.Publisher)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Publisher.Id)
+            @Html.DisplayFor(model => model.Publisher.NamePublisher)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.PublishingYear)
@@ -50,7 +51,7 @@
             @Html.DisplayNameFor(model => model.Category)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Category.Id)
+            @Html.DisplayFor(model => model.Category.CategoryName)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Amount)
@@ -74,7 +75,7 @@
             @Html.DisplayNameFor(model => model.Price)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
+            @Html.DisplayFor(model => model.Price) Лв
         </dd>
     </dl>
 </div>

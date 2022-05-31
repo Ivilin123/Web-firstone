@@ -1,0 +1,36 @@
+﻿.column {
+    float: left;
+    width: 40%;
+    padding: 5px;
+}
+
+
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+img:hover {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+
+
+.button {
+    background-color:cadetblue;
+    border: double;
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+}
+.Crud {
+    text-shadow: 2px 2px 5px white;
+    color:black;
+}
+body {
+    background-color: cornsilk
+}

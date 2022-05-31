@@ -3,36 +3,32 @@
 @{
     ViewData["Title"] = "Create";
 }
+<link rel="stylesheet" href="~/css/StyleSheet.css" />
 
-<h1>Create</h1>
 
-<h4>Order</h4>
+<h4>Добавяне на поръчка</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+      
             <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <input asp-for="UserId" class="form-control" />
-                <span asp-validation-for="UserId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProductId" class="control-label"></label>
+                <label asp-for="ProductId" class="control-label">Номер на продукт</label>
                 <select asp-for="ProductId" class ="form-control" asp-items="@Model.Products"></select>
             </div>
             <div class="form-group">
-                <label asp-for="AmountOrdered" class="control-label"></label>
+                <label asp-for="AmountOrdered" class="control-label">Количество</label>
                 <input asp-for="AmountOrdered" class="form-control" />
                 <span asp-validation-for="AmountOrdered" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PriceOrder" class="control-label"></label>
+                <label asp-for="PriceOrder" class="control-label">Цена</label>
                 <input asp-for="PriceOrder" class="form-control" />
                 <span asp-validation-for="PriceOrder" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OrderedOn" class="control-label"></label>
+                <label asp-for="OrderedOn" class="control-label">Дата</label>
                 <input asp-for="OrderedOn" class="form-control" />
                 <span asp-validation-for="OrderedOn" class="text-danger"></span>
             </div>

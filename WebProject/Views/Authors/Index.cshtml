@@ -1,39 +1,44 @@
 ﻿@model IEnumerable<WebProject.Data.Author>
-
+ <link rel="stylesheet" href="~/css/StyleSheet.css" />
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Списък на автори</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+      <button class="button" onclick="Fun()">Създай</button>
+                 <script>
+function Fun() {
+  location.replace("https://localhost:44318/Authors/create")
+}
+   </script>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
+                Име
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LastName)
+               Фамилия
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+        <tr >
             <td>
                 @Html.DisplayFor(modelItem => item.FirstName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.LastName)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            <td >
+                <a asp-action="Edit" asp-route-id="@item.Id"  style="color:black ">Edit </a> |
+                <a asp-action="Details" asp-route-id="@item.Id" style="color:black " >Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id" style="color:black " >Delete</a>
             </td>
         </tr>
 }

@@ -70,10 +70,7 @@ namespace WebProject.Controllers
             ).ToList();
           
 
-            //var idUser = _userManager.GetUserId(User);
-            //var idUser1 = _userManager.GetUserId(HttpContext.User);
-            //ViewBag.UserId = idUser1;
-            ////ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name");
+           
             return View(model);
         }
 
@@ -86,7 +83,7 @@ namespace WebProject.Controllers
         {
             if (!ModelState.IsValid)
             {
-                //ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", order.ProductId);
+                
                 OrdersVM model = new OrdersVM();
                 model.UserId = _userManager.GetUserId(User);
                 model.Products = _context.Products.Select(p => new SelectListItem
@@ -129,7 +126,6 @@ namespace WebProject.Controllers
             OrdersVM model = new OrdersVM();
             model.Id= order.Id; 
             model.ProductId = order.ProductId;
-            //  model.UserId = _userManager.GetUserId(User);
             model.AmountOrdered = order.AmountOrdered;
             model.PriceOrder = order.PriceOrder;
             model.OrderedOn = order.OrderedOn;
@@ -169,7 +165,7 @@ namespace WebProject.Controllers
                 return View(order);
             }
 
-            //  model.Id = order.Id;    
+              
             modelToDB.ProductId = order.ProductId;
             modelToDB.UserId = _userManager.GetUserId(User);
             modelToDB.AmountOrdered = order.AmountOrdered;

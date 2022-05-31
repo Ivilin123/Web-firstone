@@ -60,9 +60,7 @@ namespace WebProject.Areas.Identity.Pages.Account
             [Display(Name = "Username")]
             public string Username { get; set; }
 
-
             [Required]
-            [EmailAddress]
             [Display(Name = "PhoneNumber")]
             public string PhoneNumber { get; set; }
 
@@ -95,7 +93,7 @@ namespace WebProject.Areas.Identity.Pages.Account
                     
                     UserName = Input.Username, 
                     Email = Input.Email,
-                    PhoneNumber = Input.PhoneNumber,  
+                    PhoneNumber = Input.PhoneNumber, 
                     FullName = Input.FullName  
                     
                 };

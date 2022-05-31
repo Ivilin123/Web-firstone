@@ -1,19 +1,18 @@
 ﻿@model WebProject.Models.ProductsVM
-
+<link rel="stylesheet" href="~/css/StyleSheet.css" />
 @{
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
 
-<h4>Product</h4>
+<h4>Добавяне на продукт</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
+                <label asp-for="Name" class="control-label">Име</label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
@@ -22,12 +21,12 @@
                 <select asp-for="AuthorId" class ="form-control" asp-items="@Model.Author"></select>
             </div>
             <div class="form-group">
-                <label asp-for="Covers" class="control-label"></label>
+                <label asp-for="Covers" class="control-label">Корици</label>
                 <select asp-for="Covers" asp-items="@Html.GetEnumSelectList<WebProject.Data.Covers>()" class="form-control"></select>
                 <span asp-validation-for="Covers" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Types" class="control-label"></label>
+                <label asp-for="Types" class="control-label">Тип на кригата</label>
                 <select asp-for="Types" asp-items="@Html.GetEnumSelectList<WebProject.Data.Types>()" class="form-control"></select>
                 <span asp-validation-for="Types" class="text-danger"></span>
             </div>
@@ -36,7 +35,7 @@
                 <select asp-for="PublisherId" class ="form-control" asp-items="@Model.Publisher"></select>
             </div>
             <div class="form-group">
-                <label asp-for="PublishingYear" class="control-label"></label>
+                <label asp-for="PublishingYear" class="control-label">Година на издаване</label>
                 <input asp-for="PublishingYear" class="form-control" />
                 <span asp-validation-for="PublishingYear" class="text-danger"></span>
             </div>
@@ -45,22 +44,22 @@
                 <select asp-for="CategoryId" class ="form-control" asp-items="@Model.Category"></select>
             </div>
             <div class="form-group">
-                <label asp-for="Amount" class="control-label"></label>
+                <label asp-for="Amount" class="control-label">Количество</label>
                 <input asp-for="Amount" class="form-control" />
                 <span asp-validation-for="Amount" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Summary" class="control-label"></label>
+                <label asp-for="Summary" class="control-label">Резюме</label>
                 <input asp-for="Summary" class="form-control" />
                 <span asp-validation-for="Summary" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ImageURL" class="control-label"></label>
+                <label asp-for="ImageURL" class="control-label">Снимка</label>
                 <input asp-for="ImageURL" class="form-control" />
                 <span asp-validation-for="ImageURL" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
+                <label asp-for="Price" class="control-label">Цена</label>
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>

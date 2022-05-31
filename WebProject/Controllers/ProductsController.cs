@@ -20,10 +20,23 @@ namespace WebProject.Controllers
         }
 
         // GET: Products
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
             var applicationDbContext = _context.Products.Include(p => p.Author).Include(p => p.Category).Include(p => p.Publisher);
             return View(await applicationDbContext.ToListAsync());
+            ViewData["Name"] = searchString;
+            var products = await _context.Products.ToListAsync();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                products = products.Where(x => x.Name.Contains(searchString)).ToList();
+            }
+            return View(products);
+
+        }
+        [HttpPost]
+        public string Index(string searchString, bool notUsed)
+        {
+            return "From [HttpPost]Index: filter on " + searchString;
         }
 
         // GET: Products/Details/5
@@ -81,9 +94,7 @@ namespace WebProject.Controllers
             ).ToList();
 
 
-            //ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "FirstName");
-            // ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "CategoryName");
-            //ViewData["PublisherId"] = new SelectList(_context.Publishers, "Id", "NamePublisher");
+           
             return View(model);
         }
 
@@ -131,17 +142,7 @@ namespace WebProject.Controllers
             ).ToList();
 
             return View(model);
-            //Product modelToDB = new Product
-            // {
-            //  PublisherId = product.PublisherId,
-            // AuthorId=product.AuthorId,
-            // CategoryId=product.CategoryId
-
-            //};
-
-            //ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "Id", product.AuthorId);
-            //ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", product.CategoryId);
-            //ViewData["PublisherId"] = new SelectList(_context.Publishers, "Id", "Id", product.PublisherId);
+           
 
         }
 
@@ -194,9 +195,7 @@ namespace WebProject.Controllers
                 Selected = (z.Id == model.CategoryId)
             }
             ).ToList();
-            //ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "Id", product.AuthorId);
-            // ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", product.CategoryId);
-            //ViewData["PublisherId"] = new SelectList(_context.Publishers, "Id", "Id", product.PublisherId);
+          
             return View(model);
             
         }
@@ -222,7 +221,7 @@ namespace WebProject.Controllers
             if (ModelState.IsValid)
             {
                 return View(product);
-                // return RedirectToAction(nameof(Index));
+               
             }
             
             modelToDB.Id = product.Id;
@@ -254,10 +253,7 @@ namespace WebProject.Controllers
                 }
             }
             return RedirectToAction("Details", new { id=id });
-            // ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "Id", product.AuthorId);
-            // ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", product.CategoryId);
-            // ViewData["PublisherId"] = new SelectList(_context.Publishers, "Id", "Id", product.PublisherId);
-            // return View(product);
+           
         }
 
         // GET: Products/Delete/5

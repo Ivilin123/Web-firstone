@@ -1,19 +1,25 @@
 ﻿@model IEnumerable<WebProject.Data.Category>
-
+ <link rel="stylesheet" href="~/css/StyleSheet.css" />
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Списък с категории</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+     <button class="button" onclick="Fun()">Създай</button>
+  <script>
+function Fun() {
+  location.replace("https://localhost:44318/Categories/Create")
+}
+  </script>
+    
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CategoryName)
+                Име
             </th>
             <th></th>
         </tr>
@@ -25,9 +31,9 @@
                 @Html.DisplayFor(modelItem => item.CategoryName)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id" style="color:black ">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id" style="color:black ">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id" style="color:black ">Delete</a>
             </td>
         </tr>
 }
